@@ -20,7 +20,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker-style.css";
 import moment from "moment";
 import EmployeeContactDetails from './EmployeeContactDetails'
-import EmployeeEducationalDetails from './EmployeeEducationalDetails'
 
 
 const EmployeePersonalInformation = () => {
@@ -49,19 +48,8 @@ const EmployeePersonalInformation = () => {
       addrPermState:'',
       addrPermPincode:'',
       checkedPermAddress:false,
-      eduUnderGrad:false,
-      eduPostGrad:false,
-      eduGrad:false,
-      eduDiploma:false,
-      eduSchool:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
-      eduGradCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
-      eduPostGradCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
-      eduDiplomaCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
-      eduSchoolName:'',
-      eduPassOutYear:'',
-      eduPercentage:'',
-      eduMedium:''
-
+      mobileNumber:'',
+      alternateNumber:''
     },
     validationSchema: EmployeePersonalInformationSchema,
     onSubmit: (values) => {
@@ -198,7 +186,7 @@ const EmployeePersonalInformation = () => {
             </AccordionDetails>
           </Accordion>
           <EmployeeContactDetails formik={formik}/>
-          <EmployeeEducationalDetails formik={formik}/>
+          {/* <EmployeeEducationalDetails formik={formik}/> */}
         </div>
         <Grid
           container

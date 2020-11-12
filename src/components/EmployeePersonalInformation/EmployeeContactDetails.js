@@ -8,6 +8,7 @@ import {
 import Title from "../Title";
 import CurrentAddress from "./CurrentAddress";
 import PermanentAddress from "./PermanentAddress";
+import EmployeeContactPhone from "./EmployeeContactPhone"
 
 const EmployeeContactDetails = ({ formik }) => {
   return (
@@ -19,6 +20,7 @@ const EmployeeContactDetails = ({ formik }) => {
       <Grid container spacing={3}>
           <CurrentAddress formik={formik} />
           <PermanentAddress formik={formik} />
+          <EmployeeContactPhone formik={formik}/>
         </Grid>
         
       </AccordionDetails>

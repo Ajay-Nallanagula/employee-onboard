@@ -8,13 +8,15 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import Title from "../Title";
-import EmployeeEducationUniversities from "./EmployeeEducationUniversities";
-import EmployeeEducationUniversityModal from "./EmployeeEducationUniversityModal";
+import Title from "../../Title";
+// import EmployeeEducationUniversities from "./EmployeeEducationUniversities";
+ import EmployeeEducationUniversityModal from "../EmployeeEducationUniversityModal";
 
 const EmployeeEducationalDetails = ({ formik }) => {
   const { handleChange, values } = formik;
   const [open, setOpen] = useState({ isOpen: false, name: "" });
+  const [eduInstitutes,setEduInstitutes] = useState({institutes:{}})
+  console.log({VALUES:formik.values})
   return (
     <Accordion style={{ padding: "10px" }}>
       <AccordionSummary>
@@ -28,14 +30,7 @@ const EmployeeEducationalDetails = ({ formik }) => {
                 control={
                   <Checkbox
                     checked={values.eduUnderGrad}
-                    onChange={(e) => {
-                      //setUnderGrad(e.target.checked)
-                      setOpen(() => ({
-                        isOpen: e.target.checked,
-                        name: e.target.name,
-                      }));
-                      return handleChange(e);
-                    }}
+                    onChange={handleChange}
                     name="eduUnderGrad"
                     color="primary"
                   />
@@ -113,18 +108,15 @@ const EmployeeEducationalDetails = ({ formik }) => {
                 }
               />
             </FormGroup>
-
             <EmployeeEducationUniversityModal
               open={open}
               closeModal={setOpen}
-              formik={formik}
+              formikUpper={formik}
+              eduInstitutes={eduInstitutes}
+              setEduInstitutes={setEduInstitutes}
             />
           </Grid>
 
-          <Grid item md={12}>
-            {console.log({ VALUES: formik.values })}
-            <EmployeeEducationUniversities formik={formik} />
-          </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>

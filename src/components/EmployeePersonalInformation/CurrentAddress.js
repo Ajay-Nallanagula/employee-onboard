@@ -1,8 +1,5 @@
 import React from "react";
 import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Grid,
   FormControlLabel,
   Checkbox,
