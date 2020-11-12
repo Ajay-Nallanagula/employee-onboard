@@ -3,7 +3,8 @@ import { Grid } from "@material-ui/core";
 import { TextBox } from "../../controls/TextBox";
 import { errorMsg } from "./EmployeePersonalInformation.utils";
 
-const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
+const EmployeeFamilyDetails = ({formik}) => {
+  const { values, handleChange, errors, touched ,handleBlur} = formik
   return (
     <Grid container spacing={3}>
       <Grid item md={4} xs={4}>
@@ -13,6 +14,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           variant="outlined"
           value={values.fatherfirstName}
           onChange={handleChange}
+          onBlur={handleBlur}
           name="fatherfirstName"
           errorMessage={errorMsg(errors, touched, "fatherfirstName")}
         />
@@ -24,6 +26,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           variant="outlined"
           value={values.fathermiddleName}
           onChange={handleChange}
+          onBlur={handleBlur}
           name="fathermiddleName"
           errorMessage={errorMsg(errors, touched, "fathermiddleName")}
         />
@@ -34,6 +37,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           label="Father Last Name"
           variant="outlined"
           value={values.fatherlastName}
+          onBlur={handleBlur}
           onChange={handleChange}
           name="fatherlastName"
           errorMessage={errorMsg(errors, touched, "fatherlastName")}
@@ -45,6 +49,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           label="Mother First Name"
           variant="outlined"
           value={values.motherfirstName}
+          onBlur={handleBlur}
           onChange={handleChange}
           name="motherfirstName"
           errorMessage={errorMsg(errors, touched, "motherfirstName")}
@@ -57,6 +62,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           variant="outlined"
           value={values.mothermiddleName}
           onChange={handleChange}
+          onBlur={handleBlur}
           name="mothermiddleName"
           errorMessage={errorMsg(errors, touched, "mothermiddleName")}
         />
@@ -68,6 +74,7 @@ const EmployeeFamilyDetails = ({ values, handleChange, errors, touched }) => {
           variant="outlined"
           value={values.motherlastName}
           onChange={handleChange}
+          onBlur={handleBlur}
           name="motherlastName"
           errorMessage={errorMsg(errors, touched, "motherlastName")}
         />

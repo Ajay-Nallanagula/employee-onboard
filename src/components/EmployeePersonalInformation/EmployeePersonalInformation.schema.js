@@ -1,4 +1,4 @@
-import { string, object } from "yup";
+import { string, object, number } from "yup";
 
 const EmployeePersonalInformationSchema = object().shape({
   firstName: string()
@@ -35,9 +35,36 @@ const EmployeePersonalInformationSchema = object().shape({
   motherlastName: string()
     .min(2, "Mother last name length is minimum 2 !")
     .max(50, "Mother last name length is maximum 50 !"),
-
-    dob:string()
-        .required('Date is required')
+  addrPincode: number()
+    .nullable()
+    .typeError("should only be a number")
+    .test("Indian Pincode Test", "Enter a valid pincode", (value) => {
+      const pinCodeRegex = new RegExp("^[1-9][0-9]{5}$");
+      return !value || pinCodeRegex.test(value);
+    }),
+  addrPermPincode: number()
+    .nullable()
+    .typeError("should only be a number")
+    .test("Indian Pincode Test", "Enter a valid pincode", (value) => {
+      const pinCodeRegex = new RegExp("^[1-9][0-9]{5}$");
+      return !value || pinCodeRegex.test(value);
+    }),
+  mobileNumber: number()
+    .typeError("should be a 10-digit number")
+    .test("Mobile Number", "Enter a valid Mobile number", (value) => {
+      const mobileRegEx = /^\d{10}$/;
+      return !value || mobileRegEx.test(value);
+    }),
+  alternateNumber: number()
+    .typeError("should be a 10-digit number")
+    .test('Mobile and Alternate Match', 'Mobile Number and Alternate Number should be different', function(value) {
+      return this.parent.mobileNumber !== value;
+    })
+    .test("Mobile Number", "Enter a valid Mobile number", (value) => {
+      const mobileRegEx = /^\d{10}$/;
+      return !value || mobileRegEx.test(value);
+    })
+    ,
 });
 
 export default EmployeePersonalInformationSchema;
