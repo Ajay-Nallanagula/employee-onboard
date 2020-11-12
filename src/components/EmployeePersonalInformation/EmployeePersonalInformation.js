@@ -18,7 +18,10 @@ import EmployeeFamilyDetails from "./EmployeeFamilyDetails";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker-style.css";
-import  moment from 'moment'
+import moment from "moment";
+import EmployeeContactDetails from './EmployeeContactDetails'
+import EmployeeEducationalDetails from './EmployeeEducationalDetails'
+
 
 const EmployeePersonalInformation = () => {
   const [isSubmit, setIsSubmit] = useState(false);
@@ -29,11 +32,36 @@ const EmployeePersonalInformation = () => {
       middleName: "",
       lastName: "",
       email: "",
-      dob: "",
       motherfirstName: "",
       fatherfirstName: "",
       nationality: "",
       dob: null,
+      addrDoorNo:'',
+      addrLine1:'',
+      addrLine2:'',
+      addrCityMandal:'',
+      addrState:'',
+      addrPincode:'',
+      addrPermDoorNo:'',
+      addrPermLine1:'',
+      addrPermLine2:'',
+      addrPermCityMandal:'',
+      addrPermState:'',
+      addrPermPincode:'',
+      checkedPermAddress:false,
+      eduUnderGrad:false,
+      eduPostGrad:false,
+      eduGrad:false,
+      eduDiploma:false,
+      eduSchool:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
+      eduGradCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
+      eduPostGradCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
+      eduDiplomaCollege:{eduSchoolName:'',eduPassOutYear:'',eduPercentage:'',eduMedium:''},
+      eduSchoolName:'',
+      eduPassOutYear:'',
+      eduPercentage:'',
+      eduMedium:''
+
     },
     validationSchema: EmployeePersonalInformationSchema,
     onSubmit: (values) => {
@@ -48,8 +76,14 @@ const EmployeePersonalInformation = () => {
     errors,
     touched,
     setFieldValue,
+    handleBlur
   } = formik;
   //const classes= useStyles()
+  const maxDate = new Date(
+    moment("01/01/2020", "DD/MM/YYYY")
+      .subtract(19, "years")
+      .format("DD/MM/YYYY")
+  );
   return (
     <Paper>
       <form onSubmit={handleSubmit}>
@@ -72,6 +106,7 @@ const EmployeePersonalInformation = () => {
                     variant="outlined"
                     value={values.firstName}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     name="firstName"
                     errorMessage={errorMsg(errors, touched, "firstName")}
                   />
@@ -84,6 +119,7 @@ const EmployeePersonalInformation = () => {
                     variant="outlined"
                     value={values.middleName}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     name="middleName"
                     errorMessage={errorMsg(errors, touched, "middleName")}
                   />
@@ -96,6 +132,7 @@ const EmployeePersonalInformation = () => {
                     variant="outlined"
                     value={values.lastName}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     name="lastName"
                     errorMessage={errorMsg(errors, touched, "lastName")}
                   />
@@ -108,11 +145,11 @@ const EmployeePersonalInformation = () => {
                     variant="outlined"
                     value={values.email}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     name="email"
                     errorMessage={errorMsg(errors, touched, "email")}
                   />
                 </Grid>
-                {
                   <Grid item md={4} xs={4}>
                     <DatePicker
                       required
@@ -120,17 +157,19 @@ const EmployeePersonalInformation = () => {
                       dateFormat="dd/MM/yyyy"
                       className="form-control"
                       name="dob"
-                      showYearDropdown
-                      scrollableYearDropdown
                       onChange={(date) => setFieldValue("dob", date)}
                       placeholderText="DOB, dd/MM/yyyy"
                       customInput={
                         <TextBox id="outlined-required" variant="outlined" />
                       }
-                      maxDate={new Date(moment(new Date()).subtract(20, 'years').format('DD/MM/YYYY'))}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      maxDate={maxDate}
+                      portalId="root-portal"
+                      withPortal
                     />
                   </Grid>
-                }
                 <Grid item md={4} xs={4}>
                   <TextBox
                     id="outlined-required"
@@ -139,30 +178,27 @@ const EmployeePersonalInformation = () => {
                     value={values.nationality}
                     onChange={handleChange}
                     name="nationality"
+                    onBlur={handleBlur}
                     errorMessage={errorMsg(errors, touched, "nationality")}
                   />
                 </Grid>
               </Grid>
             </AccordionDetails>
           </Accordion>
-
           <Accordion style={{ padding: "10px" }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Title variant="body1">Employee Family Details</Title>
+              <Title variant="body1">Employee Details</Title>
             </AccordionSummary>
             <AccordionDetails>
-              <EmployeeFamilyDetails
-                values={values}
-                handleChange={handleChange}
-                errors={errors}
-                touched={touched}
-              />
+              <EmployeeFamilyDetails formik={formik}/>
             </AccordionDetails>
           </Accordion>
+          <EmployeeContactDetails formik={formik}/>
+          <EmployeeEducationalDetails formik={formik}/>
         </div>
         <Grid
           container
@@ -172,6 +208,8 @@ const EmployeePersonalInformation = () => {
         >
           <Button onClick={() => handleSubmit()} />
         </Grid>
+
+       
       </form>
       {isSubmit && (
         <div>
