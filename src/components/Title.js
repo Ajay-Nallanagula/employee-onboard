@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 export default function Title(props) {
+
   return (
-    <Typography component="h2" variant={props.variant || 'h6'} color="primary" gutterBottom style={{textAlign: 'center'}}>
+    <Typography component="h2" variant={props.variant || 'h6'} color="primary" gutterBottom style={{textAlign: props.textAlign ||'center'}}>
       {props.children}
     </Typography>
   );

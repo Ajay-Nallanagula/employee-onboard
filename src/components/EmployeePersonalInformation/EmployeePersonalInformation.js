@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { useFormik } from "formik";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import EmployeeInfoDisplay from "../EmployeeInfoDisplay";
@@ -20,10 +20,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker-style.css";
 import moment from "moment";
 import EmployeeContactDetails from './EmployeeContactDetails'
+import {IncutContext} from '../../context/IncutContext'
 
 
-const EmployeePersonalInformation = () => {
+
+const EmployeePersonalInformation = ({setTab}) => {
   const [isSubmit, setIsSubmit] = useState(false);
+  const {formData} = useContext(IncutContext)
 
   const formik = useFormik({
     initialValues: {
@@ -49,11 +52,17 @@ const EmployeePersonalInformation = () => {
       addrPermPincode:'',
       checkedPermAddress:false,
       mobileNumber:'',
-      alternateNumber:''
+      alternateNumber:'',
+      // underGrad:{eduUnderGrad:false,eduInstituteName:'',},
+      // grad:{eduGrad:false,eduInstituteName:''},
+      // diploma:{eduDiploma:false,eduInstituteName:''},
+      // postGrad:{eduPostGrad:'',eduInstituteName:''}
     },
     validationSchema: EmployeePersonalInformationSchema,
     onSubmit: (values) => {
       setIsSubmit(true);
+      setTab((val)=> val===4 ? 1:2)
+      formData.employeePersonalInfomation = {...values}
     },
   });
 
@@ -179,14 +188,14 @@ const EmployeePersonalInformation = () => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Title variant="body1">Employee Details</Title>
+              <Title variant="body1">Employee Personal Details</Title>
             </AccordionSummary>
             <AccordionDetails>
               <EmployeeFamilyDetails formik={formik}/>
             </AccordionDetails>
           </Accordion>
           <EmployeeContactDetails formik={formik}/>
-          {/* <EmployeeEducationalDetails formik={formik}/> */}
+
         </div>
         <Grid
           container
@@ -194,7 +203,7 @@ const EmployeePersonalInformation = () => {
           justify="flex-end"
           alignItems="flex-end"
         >
-          <Button onClick={() => handleSubmit()} />
+          <Button onClick={() => handleSubmit()} text="Next"/>
         </Grid>
 
        

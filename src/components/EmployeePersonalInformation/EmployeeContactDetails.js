@@ -9,11 +9,12 @@ import Title from "../Title";
 import CurrentAddress from "./CurrentAddress";
 import PermanentAddress from "./PermanentAddress";
 import EmployeeContactPhone from "./EmployeeContactPhone"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const EmployeeContactDetails = ({ formik }) => {
   return (
     <Accordion style={{ padding: "10px" }}>
-      <AccordionSummary>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Title variant="body1">Employee Contact Details</Title>
       </AccordionSummary>
       <AccordionDetails>
