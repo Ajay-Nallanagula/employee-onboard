@@ -17,7 +17,7 @@ const BasicDropZoneAttachments = ({ noDrag, multiple, onDrop}) => {
     <section className="container">
       <div {...obj}>
         <input {...getInputProps()} />
-        <p>Click to select files</p>
+        <p>Drag or Click to select files</p>
       </div>
     </section>
   );

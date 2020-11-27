@@ -6,11 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import IncutTheme from "./controls/themes/IncutTheme";
 import IncutProvider from "./context/IncutProvider";
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 ReactDOM.render(
   <MuiThemeProvider theme={IncutTheme}>
     <IncutProvider>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </IncutProvider>
   </MuiThemeProvider>,
   document.getElementById("root")

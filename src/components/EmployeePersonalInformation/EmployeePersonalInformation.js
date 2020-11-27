@@ -1,4 +1,4 @@
-import React, { useState ,useContext} from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import EmployeeInfoDisplay from "../EmployeeInfoDisplay";
@@ -19,50 +19,50 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./date-picker-style.css";
 import moment from "moment";
-import EmployeeContactDetails from './EmployeeContactDetails'
-import {IncutContext} from '../../context/IncutContext'
+import EmployeeContactDetails from "./EmployeeContactDetails";
+import { IncutContext } from "../../context/IncutContext";
 
-
-
-const EmployeePersonalInformation = ({setTab}) => {
+const EmployeePersonalInformation = ({ setTab }) => {
   const [isSubmit, setIsSubmit] = useState(false);
-  const {formData} = useContext(IncutContext)
+  
+  const { formData } = useContext(IncutContext);
+  const { employeePersonalInfomation } = formData;
+
+  const initValues = {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    email: "",
+    motherfirstName: "",
+    fatherfirstName: "",
+    nationality: "",
+    dob: null,
+    addrDoorNo: "",
+    addrLine1: "",
+    addrLine2: "",
+    addrCityMandal: "",
+    addrState: "",
+    addrPincode: "",
+    addrPermDoorNo: "",
+    addrPermLine1: "",
+    addrPermLine2: "",
+    addrPermCityMandal: "",
+    addrPermState: "",
+    addrPermPincode: "",
+    checkedPermAddress: false,
+    mobileNumber: "",
+    alternateNumber: "",
+  };
 
   const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      email: "",
-      motherfirstName: "",
-      fatherfirstName: "",
-      nationality: "",
-      dob: null,
-      addrDoorNo:'',
-      addrLine1:'',
-      addrLine2:'',
-      addrCityMandal:'',
-      addrState:'',
-      addrPincode:'',
-      addrPermDoorNo:'',
-      addrPermLine1:'',
-      addrPermLine2:'',
-      addrPermCityMandal:'',
-      addrPermState:'',
-      addrPermPincode:'',
-      checkedPermAddress:false,
-      mobileNumber:'',
-      alternateNumber:'',
-      // underGrad:{eduUnderGrad:false,eduInstituteName:'',},
-      // grad:{eduGrad:false,eduInstituteName:''},
-      // diploma:{eduDiploma:false,eduInstituteName:''},
-      // postGrad:{eduPostGrad:'',eduInstituteName:''}
-    },
-    validationSchema: EmployeePersonalInformationSchema,
+    initialValues: employeePersonalInfomation
+      ? { ...employeePersonalInfomation }
+      : { ...initValues },
+    //validationSchema: EmployeePersonalInformationSchema,
     onSubmit: (values) => {
       setIsSubmit(true);
-      setTab((val)=> val===4 ? 1:2)
-      formData.employeePersonalInfomation = {...values}
+      setTab((val) => (val === 4 ? 1 : 2));
+      formData.employeePersonalInfomation = { ...values };
     },
   });
 
@@ -73,7 +73,7 @@ const EmployeePersonalInformation = ({setTab}) => {
     errors,
     touched,
     setFieldValue,
-    handleBlur
+    handleBlur,
   } = formik;
   //const classes= useStyles()
   const maxDate = new Date(
@@ -147,26 +147,26 @@ const EmployeePersonalInformation = ({setTab}) => {
                     errorMessage={errorMsg(errors, touched, "email")}
                   />
                 </Grid>
-                  <Grid item md={4} xs={4}>
-                    <DatePicker
-                      required
-                      selected={values.dob}
-                      dateFormat="dd/MM/yyyy"
-                      className="form-control"
-                      name="dob"
-                      onChange={(date) => setFieldValue("dob", date)}
-                      placeholderText="DOB, dd/MM/yyyy"
-                      customInput={
-                        <TextBox id="outlined-required" variant="outlined" />
-                      }
-                      showMonthDropdown
-                      showYearDropdown
-                      dropdownMode="select"
-                      maxDate={maxDate}
-                      portalId="root-portal"
-                      withPortal
-                    />
-                  </Grid>
+                <Grid item md={4} xs={4}>
+                  <DatePicker
+                    required
+                    selected={values.dob}
+                    dateFormat="dd/MM/yyyy"
+                    className="form-control"
+                    name="dob"
+                    onChange={(date) => setFieldValue("dob", date)}
+                    placeholderText="DOB, dd/MM/yyyy"
+                    customInput={
+                      <TextBox id="outlined-required" variant="outlined" />
+                    }
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    maxDate={maxDate}
+                    portalId="root-portal"
+                    withPortal
+                  />
+                </Grid>
                 <Grid item md={4} xs={4}>
                   <TextBox
                     id="outlined-required"
@@ -191,11 +191,10 @@ const EmployeePersonalInformation = ({setTab}) => {
               <Title variant="body1">Employee Personal Details</Title>
             </AccordionSummary>
             <AccordionDetails>
-              <EmployeeFamilyDetails formik={formik}/>
+              <EmployeeFamilyDetails formik={formik} />
             </AccordionDetails>
           </Accordion>
-          <EmployeeContactDetails formik={formik}/>
-
+          <EmployeeContactDetails formik={formik} />
         </div>
         <Grid
           container
@@ -203,10 +202,8 @@ const EmployeePersonalInformation = ({setTab}) => {
           justify="flex-end"
           alignItems="flex-end"
         >
-          <Button onClick={() => handleSubmit()} text="Next"/>
+          <Button onClick={() => handleSubmit()} text="Next" />
         </Grid>
-
-       
       </form>
       {isSubmit && (
         <div>

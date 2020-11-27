@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Provider } from "./IncutContext";
+import { uuid } from "uuidv4";
 
-export const IncutProvider = ({children}) => {
+export const IncutProvider = ({ children }) => {
   const [formData, setFormData] = useState({});
-//   useEffect(() => {
-//     setFormData(() => ({ ...formData }));
-//   }, []);
 
-return <Provider value={{ formData: { ...formData } }}> {children}</Provider>
+  return (
+    <Provider
+      value={{
+        formData: {
+          ...formData,
+          empcustomId: uuid(),
+          approvedStatus: "pending",
+        },
+      }}
+    >
+      {" "}
+      {children}
+    </Provider>
+  );
 };
 
-export default IncutProvider
+export default IncutProvider;
